@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+# Generated data (fully reproducible with `python run_pipeline.py`, ~85 MB)
+data/raw/*.csv
+data/processed/
+data/outputs/pipeline.log
+# Secrets / local config: never commit credentials
+.env
+*.env
+.pgpass
+*.pem
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+~$*.xlsx
