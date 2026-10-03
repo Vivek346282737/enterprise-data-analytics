@@ -207,7 +207,7 @@ Full report with tables, actions and limitations: **[docs/business_insights.md](
 
 ## 17. How to run
 ```bash
-git clone https://github.com/<your-username>/enterprise-data-analytics.git
+git clone https://github.com/Vivek346282737/enterprise-data-analytics.git
 cd enterprise-data-analytics
 python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
