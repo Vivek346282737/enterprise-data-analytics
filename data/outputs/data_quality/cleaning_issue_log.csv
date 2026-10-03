@@ -1,0 +1,43 @@
+table,issue,why_it_is_wrong,how_detected,how_fixed,rows_affected
+regions,Extra whitespace in city,Breaks joins/grouping ('  Delhi ' != 'Delhi'),value != TRIM(value),TRIM + collapse inner spaces,4
+regions,Inconsistent region (zone) labels,Same zone spelt 12 ways splits regional totals,Distinct values outside the 5 allowed zones,Lower/trim then map to canonical zone,8
+products,Exact duplicate rows,Double counting in catalogue joins,DataFrame.duplicated(),Dropped duplicates,5
+products,Inconsistent category names,"'electronics', 'ELECTRONICS', 'Electronic' split one category",Values outside 7 canonical categories,Case/space-insensitive mapping table,78
+products,"Price stored as text ('₹1,299.00')",Numeric column cannot be aggregated,pd.to_numeric fails on raw value,"Removed currency symbol & separators, cast to float",26
+products,Missing unit_cost,Profit cannot be computed,IS NULL check,Imputed = price x median cost ratio of same sub-category; flagged cost_imputed=True,15
+products,Missing brand,Blank labels in brand reports,IS NULL check,Set to 'Unbranded',10
+customers,Exact duplicate rows,Inflates customer counts,DataFrame.duplicated(),Dropped,120
+customers,Whitespace / inconsistent case in names & email,' RAHUL  ' and 'Rahul' look like different people,"value != TRIM(value), mixed case","TRIM, Title-case names, lower-case email",1153
+customers,Inconsistent gender codes (M/F/male),Splits demographic groups,"Values outside {Male, Female}",Mapped to Male/Female; missing -> 'Not Specified',611
+customers,"Invalid age (text 'unknown', negative, 150, 999)",Impossible values distort averages,Non-numeric or outside 18-100,Set to NULL (not guessed),175
+customers,"Invalid signup_date (2023-02-30, 'not available', future 2031)",Breaks cohort/tenure analysis,Fails ISO/dd-mm-yyyy parse or > snapshot date,"Set NULL, later imputed with customer's first order date (flag signup_date_imputed)",60
+customers,Duplicate customers (same e-mail re-registered under new ID),One person counted twice; splits their orders & lifetime value,Normalised e-mail appears under >1 customer_id,Kept earliest customer_id as master; re-pointed orders/tickets of duplicates to master,289
+customers,Missing e-mail,Cannot contact / dedupe by e-mail,IS NULL check,Kept customer (orders are valid); excluded from e-mail based dedupe,360
+orders,Exact duplicate rows (double load),Double-counts revenue & orders,DataFrame.duplicated(),Dropped,336
+orders,Orders linked to duplicate customer IDs,Splits customer history,customer_id in duplicate map,Re-pointed to master customer_id,462
+orders,Orphan customer_id (not in customer master),Referential integrity violation,LEFT JOIN customers -> NULL,"Mapped to 'C_UNKNOWN' member (revenue kept, customer unknown)",112
+orders,"Invalid / missing order_date (2024-02-31, '', future)",Order cannot be placed in time series,Fails date parse or after data cut-off,Recovered from matching payment_date (same-day payment in source system),144
+orders,Inconsistent order_status case/whitespace,'delivered ' not counted as Delivered,Values outside allowed set,TRIM + Title case,560
+orders,"Inconsistent channel labels ('web', 'app', '3P Marketplace')",Splits channel KPIs,Values outside 4 canonical channels,Mapping table to channel_id,37022
+orders,Missing channel,Order cannot be attributed,IS NULL check,promised_days=0 => Retail Store (store hand-over rule); else 'Unknown' (CH00),448
+order_items,Exact duplicate rows,Double-counts units and revenue,DataFrame.duplicated(),Dropped,547
+order_items,unit_price stored as text with thousands separator,Wrong data type,pd.to_numeric fails,"Removed separators, cast to float",591
+order_items,"Invalid quantity (0, negative, 250, 999)",Impossible / extreme units distort sales,quantity <= 0 or > 50 (business max per line),Re-derived quantity = line_amount / (price x (1-discount)),328
+order_items,"Invalid discount_pct (1.5, -0.1, 15, 25)",Discount must be a 0-60% fraction,"Outside [0, 0.6]","Re-derived from line_amount, quantity and unit_price",219
+order_items,Missing line_amount,Revenue unknown,IS NULL check,Recomputed = quantity x unit_price x (1 - discount_pct),438
+order_items,Unrepairable lines (two dependent fields invalid at once),Value cannot be re-derived without guessing,Still NULL after re-derivation,Quarantined (data/processed/quarantine/order_items_unrepairable.csv),2
+order_items,Orphan product_id (P9999 not in catalogue),Referential integrity violation,LEFT JOIN products -> NULL,Mapped to 'P_UNKNOWN' member (sale kept),87
+payments,Exact duplicate rows,Double counts collections,DataFrame.duplicated(),Dropped,224
+payments,"Inconsistent payment method labels (upi, CC, COD)",Splits payment-mix analysis,Values outside allowed set,Mapping table; NULL -> 'Unknown',2921
+payments,Missing payment_method,Incomplete payment mix,IS NULL check,Set to 'Unknown',336
+payments,Negative payment amount,Sign error from source system (payments are inflows),amount < 0,"Absolute value (refunds are tracked by payment_status, not sign)",168
+returns,Exact duplicate rows,Inflates return rate,DataFrame.duplicated(),Dropped,70
+returns,Orphan order_item_id,Return cannot be linked to any sale,LEFT JOIN order_items -> NULL,Quarantined (data/processed/quarantine/returns_orphan.csv),26
+returns,Return reason in upper case,Splits reason analysis,Case-sensitive mismatch with allowed list,Case-insensitive mapping,174
+returns,Missing return_reason,Root-cause analysis incomplete,IS NULL check,Set to 'Not Specified',88
+returns,return_date before delivery_date,Item cannot be returned before it arrives,return_date < orders.delivery_date,Date set NULL and flagged (return still counted),88
+support_tickets,Exact duplicate rows,Inflates ticket volume,DataFrame.duplicated(),Dropped,33
+support_tickets,Ticket category in lower case,Splits category volumes,Mismatch with allowed list,Case-insensitive mapping,267
+support_tickets,Missing priority,SLA cannot be evaluated,IS NULL check,Set to 'Unassigned',133
+support_tickets,resolved_at earlier than created_at,Negative resolution time,resolved_at < created_at,resolved_at set NULL & flagged; excluded from resolution-time KPIs,40
+support_tickets,"CSAT outside 1-5 scale (0, 7, 10)",Invalid survey value,Range check,Set NULL,26

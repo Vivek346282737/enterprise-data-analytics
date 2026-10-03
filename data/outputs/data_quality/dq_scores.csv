@@ -1,0 +1,17 @@
+layer,table,Completeness,Consistency,Integrity,Uniqueness,Validity,dq_score
+raw,customers,99.41,96.38,100.0,98.23,99.5,98.7
+raw,order_items,99.93,,99.96,99.5,99.87,99.82
+raw,orders,99.98,77.12,99.9,99.4,99.88,95.26
+raw,payments,99.85,94.75,100.0,99.6,99.85,98.81
+raw,products,99.43,93.97,,99.05,98.76,97.8
+raw,regions,100.0,83.33,,100.0,,94.44
+raw,returns,99.75,98.03,99.71,99.22,100.0,99.34
+raw,support_tickets,99.6,98.0,100.0,99.51,99.67,99.36
+clean,customers,99.36,99.62,100.0,100.0,100.0,99.8
+clean,order_items,100.0,,100.0,100.0,100.0,100.0
+clean,orders,100.0,99.77,100.0,100.0,100.0,99.95
+clean,payments,100.0,99.4,100.0,100.0,100.0,99.88
+clean,products,99.92,99.94,,100.0,100.0,99.97
+clean,regions,100.0,100.0,,100.0,,100.0
+clean,returns,99.75,99.0,100.0,100.0,100.0,99.75
+clean,support_tickets,100.0,99.0,100.0,100.0,100.0,99.8

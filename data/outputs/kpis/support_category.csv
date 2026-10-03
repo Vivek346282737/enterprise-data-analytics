@@ -1,0 +1,7 @@
+ticket_category,tickets,median_resolution_hours,sla_met_pct,avg_csat
+Delivery Delay,1663,27.6,76.29,3.7
+Return/Refund,1586,35.2,61.17,3.47
+Product Query,1312,16.6,95.02,4.01
+Payment Issue,838,30.0,71.91,3.61
+Product Defect,746,40.5,57.06,3.43
+Account/Login,547,13.0,97.37,4.07

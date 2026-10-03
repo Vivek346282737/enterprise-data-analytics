@@ -1,0 +1,186 @@
+{
+  "descriptive": {
+    "order_value": {
+      "count": 54640.0,
+      "mean": 7069.171,
+      "median": 3084.12,
+      "mode_rounded_10": 500.0,
+      "std": 10874.087,
+      "min": 99.01,
+      "p25": 1307.635,
+      "p75": 8537.085,
+      "p90": 18367.363,
+      "p95": 25683.95,
+      "p99": 46629.534,
+      "max": 333175.26,
+      "skewness": 5.853,
+      "kurtosis": 77.721
+    },
+    "items_per_order": {
+      "count": 54640.0,
+      "mean": 2.842,
+      "median": 2.0,
+      "mode_rounded_10": 0.0,
+      "std": 1.828,
+      "min": 1.0,
+      "p25": 1.0,
+      "p75": 4.0,
+      "p90": 5.0,
+      "p95": 6.0,
+      "p99": 9.0,
+      "max": 17.0,
+      "skewness": 1.39,
+      "kurtosis": 2.642
+    },
+    "discount_rate": {
+      "count": 54640.0,
+      "mean": 0.086,
+      "median": 0.09,
+      "mode_rounded_10": 0.0,
+      "std": 0.053,
+      "min": -0.0,
+      "p25": 0.05,
+      "p75": 0.116,
+      "p90": 0.15,
+      "p95": 0.183,
+      "p99": 0.207,
+      "max": 0.35,
+      "skewness": 0.375,
+      "kurtosis": -0.157
+    },
+    "delivery_days_online": {
+      "count": 47687.0,
+      "mean": 3.289,
+      "median": 3.0,
+      "mode_rounded_10": 0.0,
+      "std": 8.017,
+      "min": -500.0,
+      "p25": 2.0,
+      "p75": 4.0,
+      "p90": 6.0,
+      "p95": 7.0,
+      "p99": 9.0,
+      "max": 561.0,
+      "skewness": 7.843,
+      "kurtosis": 3045.919
+    }
+  },
+  "distribution": {
+    "order_value_skew": 5.853384514687582,
+    "log_order_value_skew": 0.06490102937109282,
+    "interpretation": "Order value is strongly right-skewed (few large Electronics baskets); median is a more representative 'typical order' than mean; log scale is close to symmetric."
+  },
+  "outliers_order_value": {
+    "lower_fence": -9536.539999999999,
+    "upper_fence": 19381.26,
+    "outliers": 4832,
+    "outlier_pct": 8.843338213762811
+  },
+  "correlation": {
+    "order_value": {
+      "order_value": 1.0,
+      "items": 0.47,
+      "discount_rate": -0.043,
+      "margin_pct": -0.446,
+      "delivery_days": -0.009
+    },
+    "items": {
+      "order_value": 0.47,
+      "items": 1.0,
+      "discount_rate": 0.001,
+      "margin_pct": -0.2,
+      "delivery_days": 0.0
+    },
+    "discount_rate": {
+      "order_value": -0.043,
+      "items": 0.001,
+      "discount_rate": 1.0,
+      "margin_pct": -0.272,
+      "delivery_days": 0.148
+    },
+    "margin_pct": {
+      "order_value": -0.446,
+      "items": -0.2,
+      "discount_rate": -0.272,
+      "margin_pct": 1.0,
+      "delivery_days": -0.04
+    },
+    "delivery_days": {
+      "order_value": -0.009,
+      "items": 0.0,
+      "discount_rate": 0.148,
+      "margin_pct": -0.04,
+      "delivery_days": 1.0
+    }
+  },
+  "tests": [
+    {
+      "name": "Deep discount (>=15%) vs low discount (<15%) - order value",
+      "hypothesis": "Orders with deeper discounts have a different order value than lightly discounted orders.",
+      "h0": "Median order value is the same for both groups.",
+      "h1": "Median order value differs.",
+      "metric": "Order net value (INR)",
+      "method": "Mann-Whitney U (non-normal data) + Welch t-test on log(order value)",
+      "group_a_n": 6914,
+      "group_b_n": 47726,
+      "group_a_median": 2344.2,
+      "group_b_median": 3212.56,
+      "p_value_mannwhitney": 1.2287108887569725e-66,
+      "p_value_welch_log": 8.640282753592784e-66,
+      "significant": true
+    },
+    {
+      "name": "Return rate: Marketplace vs Website",
+      "hypothesis": "Marketplace order lines are returned more often than Website lines.",
+      "h0": "Return rates are equal.",
+      "h1": "Return rates differ.",
+      "metric": "Returned lines / total lines",
+      "method": "Two-proportion z-test",
+      "group_a_n": 26526,
+      "group_b_n": 31940,
+      "group_a_rate_pct": 10.702706778255298,
+      "group_b_rate_pct": 8.07138384470883,
+      "z": 10.924741308540609,
+      "p_value": 0.0,
+      "significant": true
+    },
+    {
+      "name": "Loyalty members vs non-members - orders per customer",
+      "hypothesis": "Loyalty-programme members place more orders.",
+      "h0": "Distribution of orders per customer is the same.",
+      "h1": "Distributions differ.",
+      "metric": "Orders per customer (2023-2025)",
+      "method": "Mann-Whitney U",
+      "group_a_n": 2723,
+      "group_b_n": 6079,
+      "group_a_mean": 7.912229159015792,
+      "group_b_mean": 5.425892416515874,
+      "p_value": 5.612501814362333e-32,
+      "significant": true
+    },
+    {
+      "name": "Ticket resolution time vs CSAT",
+      "hypothesis": "Slower resolution is associated with lower CSAT.",
+      "h0": "No monotonic association (rho = 0).",
+      "h1": "rho != 0.",
+      "metric": "Spearman rho",
+      "method": "Spearman rank correlation",
+      "group_a_n": 6556,
+      "rho": -0.5717974428898244,
+      "p_value": 0.0,
+      "significant": true
+    },
+    {
+      "name": "Order value across 4 sales channels",
+      "hypothesis": "Typical order value differs by channel.",
+      "h0": "All channels share the same order-value distribution.",
+      "h1": "At least one channel differs.",
+      "metric": "Order net value",
+      "method": "Kruskal-Wallis H",
+      "group_a_n": 54640,
+      "h_stat": 11.041995971925404,
+      "p_value": 0.02609606985119767,
+      "significant": true
+    }
+  ]
+}

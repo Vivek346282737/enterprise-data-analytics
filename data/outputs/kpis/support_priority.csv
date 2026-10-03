@@ -1,0 +1,6 @@
+priority,tickets,median_resolution_hours,sla_target_hours,sla_met_pct
+Critical,353,5.3,8,70.38
+High,1439,14.7,24,74.79
+Low,1985,41.1,72,75.38
+Medium,2782,28.5,48,75.61
+Unassigned,133,27.55,72,89.39

@@ -1,0 +1,6 @@
+,order_value,items,discount_rate,margin_pct,delivery_days
+order_value,1.0,0.47,-0.043,-0.446,-0.009
+items,0.47,1.0,0.001,-0.2,0.0
+discount_rate,-0.043,0.001,1.0,-0.272,0.148
+margin_pct,-0.446,-0.2,-0.272,1.0,-0.04
+delivery_days,-0.009,0.0,0.148,-0.04,1.0

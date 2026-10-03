@@ -1,0 +1,158 @@
+CREATE FUNCTION
+CREATE FUNCTION
+   table_name    |  column_name   | missing | total  
+-----------------+----------------+---------+--------
+ orders          | channel        |     451 |  56336
+ order_items     | line_amount    |     440 | 110047
+ customers       | email          |     364 |  12409
+ payments        | payment_method |     337 |  56224
+ customers       | gender         |     187 |  12409
+ support_tickets | priority       |     135 |   6725
+ products        | unit_cost      |      15 |    525
+(7 rows)
+
+ table_name  | exact_duplicates | duplicate_keys 
+-------------+------------------+----------------
+ customers   |              120 |            120
+ orders      |              336 |            336
+ order_items |              547 |            547
+(3 rows)
+
+            email_key            | ids |  customer_ids  
+---------------------------------+-----+----------------
+ aarav.pillai3280@example.com    |   2 | C03280, C12156
+ aarav.singh7612@example.com     |   2 | C07612, C12023
+ abhishek.chopra3552@example.com |   2 | C03552, C12179
+ abhishek.das11036@example.com   |   2 | C11036, C12262
+ abhishek.pillai570@example.com  |   2 | C00570, C12195
+ abhishek.reddy3802@example.com  |   2 | C03802, C12119
+ abhishek.shah11214@example.com  |   2 | C11214, C12169
+ abhishek.singh8955@example.com  |   2 | C08955, C12196
+ aditya.chopra6218@example.com   |   2 | C06218, C12263
+ aditya.gupta1898@example.com    |   2 | C01898, C12173
+ aditya.mishra2267@example.com   |   2 | C02267, C12093
+ aditya.mishra6555@example.com   |   2 | C06555, C12167
+ aditya.nair6693@example.com     |   2 | C06693, C12225
+ aditya.pillai6514@example.com   |   2 | C06514, C12051
+ aditya.sharma4186@example.com   |   2 | C04186, C12129
+ aditya.sinha11162@example.com   |   2 | C11162, C12217
+ aditya.sinha930@example.com     |   2 | C00930, C12240
+ amit.agarwal4194@example.com    |   2 | C04194, C12032
+ amit.ghosh3024@example.com      |   2 | C03024, C12272
+ aarav.kumar6267@example.com     |   2 | C06267, C12045
+(20 rows)
+
+          col           | non_numeric |  example  
+------------------------+-------------+-----------
+ products.unit_price    |          26 | ₹1,029.00
+ order_items.unit_price |         592 | 1,004.81
+ customers.age          |         125 | unknown
+(3 rows)
+
+          col          | unparseable | future_dates | non_iso_format 
+-----------------------+-------------+--------------+----------------
+ orders.order_date     |         107 |           39 |             24
+ customers.signup_date |          51 |           10 |             14
+(2 rows)
+
+ non_positive_qty | qty_over_50 | invalid_discount | max_qty 
+------------------+-------------+------------------+---------
+              186 |         143 |              219 |     999
+(1 row)
+
+ invalid_age 
+-------------
+          50
+(1 row)
+
+ negative_payments 
+-------------------
+               169
+(1 row)
+
+   q1   |  q3  | extreme_fence | extreme_outliers 
+--------+------+---------------+------------------
+ 615.48 | 3038 |      10305.56 |            10387
+(1 row)
+
+        category        | products 
+------------------------+----------
+ Beauty                 |       57
+ beauty                 |        6
+ Beauty & Personal Care |        5
+ BOOKS                  |        8
+ Books                  |       46
+ books                  |        4
+ Electronic             |        3
+ ELECTRONICS            |        4
+ Electronics            |       86
+ electronics            |        8
+ Fashion                |       86
+ Fashion                |       11
+ fashion                |        6
+ Groceries              |        3
+ Grocery                |       48
+ grocery                |        5
+ Home & Kitchen         |       74
+ home & kitchen         |        4
+ Home and Kitchen       |        2
+ Home&Kitchen           |        6
+ Sport                  |        3
+ Sports                 |       49
+ sports                 |        1
+(23 rows)
+
+ region_name | count 
+-------------+-------
+ Central     |     3
+ Centre      |     1
+ East        |     4
+ N. Region   |     1
+ NORTH       |     1
+ North       |     3
+ South       |     3
+ South Zone  |     2
+ West        |     3
+ east        |     1
+ west        |     2
+(11 rows)
+
+    channel     | count 
+----------------+-------
+ MobileApp      |  6090
+ Mobile App     |  6084
+ app            |  6014
+ web            |  5639
+ Website        |  5618
+ WEBSITE        |  5616
+ 3P Marketplace |  4662
+ Marketplace    |  4633
+ marketplace    |  4629
+ store          |  2332
+ Retail Store   |  2304
+ Offline Store  |  2264
+                |   451
+(13 rows)
+
+ names_with_extra_spaces 
+-------------------------
+                     865
+(1 row)
+
+      relationship       | orphans 
+-------------------------+---------
+ orders -> customers     |     114
+ order_items -> products |      87
+ returns -> order_items  |      26
+(3 rows)
+
+ resolved_before_created 
+-------------------------
+                      40
+(1 row)
+
+ orders_compared | mismatched_orders 
+-----------------+-------------------
+           56000 |               329
+(1 row)
+

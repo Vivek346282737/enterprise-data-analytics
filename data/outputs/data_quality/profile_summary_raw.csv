@@ -1,0 +1,9 @@
+table,columns,rows,missing_cells,whitespace_cells,missing_cell_pct
+customers,11,12409,801,1165,0.59
+order_items,8,110047,440,0,0.05
+orders,8,56336,2049,6179,0.45
+payments,6,56224,337,0,0.1
+products,8,525,25,16,0.6
+regions,5,24,0,4,0.0
+returns,9,8919,88,0,0.11
+support_tickets,10,6725,279,0,0.41

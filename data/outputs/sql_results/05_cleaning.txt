@@ -1,0 +1,19 @@
+SET
+DROP TABLE
+SELECT 24
+SELECT 520
+SELECT 12289
+SELECT 289
+DELETE 289
+ALTER TABLE
+ALTER TABLE
+SELECT 56000
+ALTER TABLE
+SELECT 109500
+            entity            | sql_clean | python_mart 
+------------------------------+-----------+-------------
+ customers                    |     12000 |       12000
+ orders (non-cancelled)       |     54641 |       54640
+ revenue (non-cancelled, INR) | 386208326 |   386259523
+(3 rows)
+
