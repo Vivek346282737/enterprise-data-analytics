@@ -67,7 +67,7 @@
   },
   "distribution": {
     "order_value_skew": 5.853384514687582,
-    "log_order_value_skew": 0.06490102937109282,
+    "log_order_value_skew": 0.06490102937109284,
     "interpretation": "Order value is strongly right-skewed (few large Electronics baskets); median is a more representative 'typical order' than mean; log scale is close to symmetric."
   },
   "outliers_order_value": {
@@ -126,7 +126,7 @@
       "group_a_median": 2344.2,
       "group_b_median": 3212.56,
       "p_value_mannwhitney": 1.2287108887569725e-66,
-      "p_value_welch_log": 8.640282753592784e-66,
+      "p_value_welch_log": 8.640282753592785e-66,
       "significant": true
     },
     {
@@ -155,7 +155,7 @@
       "group_b_n": 6079,
       "group_a_mean": 7.912229159015792,
       "group_b_mean": 5.425892416515874,
-      "p_value": 5.612501814362333e-32,
+      "p_value": 5.612501814362332e-32,
       "significant": true
     },
     {
